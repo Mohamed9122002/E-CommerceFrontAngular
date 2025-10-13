@@ -1,1 +1,31 @@
-<p>register works!</p>
+<section class="bg-main-light shadow p-2 my-2">
+  <h3 class="text-main">ٌRegister</h3>
+  <form [formGroup]="registerForm" (ngSubmit)="registerFormSubmit()">
+
+    <div class="mb-3">
+      <label class="form-label">Full Name</label>
+      <input type="text" class="form-control" formControlName="name" placeholder="Enter your full name">
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Email</label>
+      <input type="email" class="form-control" formControlName="email" placeholder="Enter your email">
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Password</label>
+      <input type="password" class="form-control" formControlName="password" placeholder="Enter your password">
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Confirm Password</label>
+      <input type="password" class="form-control" formControlName="rePassword" placeholder="Re-enter your password">
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Phone Number</label>
+      <input type="tel" class="form-control" formControlName="phone" placeholder="Enter your phone number">
+    </div>
+    <button class="btn-main  d-block">Register</button>
+  </form>
+
+</section>

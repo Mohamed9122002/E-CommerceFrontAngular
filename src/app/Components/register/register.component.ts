@@ -16,4 +16,7 @@ export class RegisterComponent {
     rePassword:new FormControl(null),
     phone:new FormControl(null),
   });
+  registerFormSubmit():void {
+    
+  }
 }
