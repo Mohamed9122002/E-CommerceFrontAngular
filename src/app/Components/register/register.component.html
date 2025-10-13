@@ -68,7 +68,13 @@
       </div>
       }
     </div>
-    <button class="btn-main  d-block">Register</button>
+    <button [disabled]="registerForm.invalid || isLoading" type="submit" class="btn-main  d-block">Register
+      @if (isLoading) {
+        <span><i class="fas fa-spin fa-spinner"></i></span>
+      }
+    </button>
   </form>
-
+  @if(msgError){
+    <p class="alert alert-danger w-50">{{msgError}}</p>
+  }
 </section>
