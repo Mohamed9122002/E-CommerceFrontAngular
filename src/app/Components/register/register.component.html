@@ -36,7 +36,7 @@
     <div class="mb-3">
       <label class="form-label">Password</label>
       <input type="password" class="form-control" formControlName="password" placeholder="Enter your password">
-          @if (registerForm.get('password')?.errors && registerForm.get('password')?.touched) {
+      @if (registerForm.get('password')?.errors && registerForm.get('password')?.touched) {
       <div class="alert alert-danger w-50">
         @if (registerForm.get('password')?.getError('required')) {
         <p class="m-0">Password Required</p>
@@ -50,21 +50,15 @@
     <div class="mb-3">
       <label class="form-label">Confirm Password</label>
       <input type="password" class="form-control" formControlName="rePassword" placeholder="Re-enter your password">
-              @if (registerForm.get('rePassword')?.errors && registerForm.get('rePassword')?.touched) {
-      <div class="alert alert-danger w-50">
-        @if (registerForm.get('rePassword')?.getError('required')) {
-        <p class="m-0">rePassword Required</p>
-        } @else if (registerForm.get('rePassword')?.getError("pattern")) {
-        <p class="m-0">rePassword InValid</p>
-        }
-      </div>
+      @if (registerForm.getError('mismatch') && registerForm.get('rePassword')?.touched) {
+        <p class="alert alert-danger w-50 m-0">Password Confirm is incorrect </p>
       }
     </div>
 
     <div class="mb-3">
       <label class="form-label">Phone Number</label>
       <input type="tel" class="form-control" formControlName="phone" placeholder="Enter your phone number">
-              @if (registerForm.get('phone')?.errors && registerForm.get('phone')?.touched) {
+      @if (registerForm.get('phone')?.errors && registerForm.get('phone')?.touched) {
       <div class="alert alert-danger w-50">
         @if (registerForm.get('phone')?.getError('required')) {
         <p class="m-0">Phone Required</p>
