@@ -6,12 +6,13 @@ import { Subscription } from 'rxjs';
 import { CategoriesService } from '../../Core/Services/categories.service';
 import { ICategorie } from '../../Core/Interface/icategorie';
 import { CarouselModule, OwlOptions } from 'ngx-owl-carousel-o';
+import { RouterLink } from "@angular/router";
 
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CarouselModule],
+  imports: [CarouselModule, RouterLink],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })

@@ -19,7 +19,8 @@
                 @for (product of productList; track product.id) {
                 <div class="col-md-2">
                     <div class="product p-2">
-                        <img class="w-100" [src]="product.imageCover" [alt]="product.title">
+                    <div [routerLink]="['/details',product.id]">
+                         <img class="w-100" [src]="product.imageCover" [alt]="product.title">
                         <h3 class="small text-main">{{product.category.name}}</h3>
                         <h6>{{ product.title.slice(0, 20) }}{{ product.title.length > 20 ? '...' : '' }}</h6>
                         <div class="d-flex justify-content-between align-items-center">
@@ -31,6 +32,7 @@
                                 <span class="text-muted">{{product.ratingsAverage}}</span>
                             </div>
                         </div>
+                    </div>
                         <button class="btn-main">AddToCart</button>
                     </div>
                 </div>
