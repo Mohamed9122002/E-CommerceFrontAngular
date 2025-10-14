@@ -7,18 +7,22 @@ import { CategoriesService } from '../../Core/Services/categories.service';
 import { ICategorie } from '../../Core/Interface/icategorie';
 import { CarouselModule, OwlOptions } from 'ngx-owl-carousel-o';
 import { RouterLink } from "@angular/router";
+import { CurrencyPipe } from '@angular/common';
+import { PipesSearchPipe } from '../../Core/Pipes/search.pipe';
+import { FormsModule } from '@angular/forms';
 
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CarouselModule, RouterLink],
+  imports: [CarouselModule ,FormsModule,PipesSearchPipe, RouterLink ,CurrencyPipe,],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
 export class HomeComponent implements OnInit ,OnDestroy{
   private readonly _productService = inject(ProductsService);
   private readonly _categoriesService = inject(CategoriesService);
+  text:string  = ""
     customOptionsCategories: OwlOptions = {
     loop: true,
     mouseDrag: true,
