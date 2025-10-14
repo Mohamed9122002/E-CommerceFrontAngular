@@ -10,6 +10,8 @@ import { RouterLink } from "@angular/router";
 import { CurrencyPipe } from '@angular/common';
 import { PipesSearchPipe } from '../../Core/Pipes/search.pipe';
 import { FormsModule } from '@angular/forms';
+import { CartService } from '../../Core/Services/cart.service';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -22,6 +24,8 @@ import { FormsModule } from '@angular/forms';
 export class HomeComponent implements OnInit ,OnDestroy{
   private readonly _productService = inject(ProductsService);
   private readonly _categoriesService = inject(CategoriesService);
+  private readonly _CartService = inject(CartService);
+  private readonly _Tost = inject(ToastrService)
   text:string  = ""
     customOptionsCategories: OwlOptions = {
     loop: true,
@@ -72,9 +76,22 @@ export class HomeComponent implements OnInit ,OnDestroy{
         // console.log(err);
       }
     });
+    
   }
   ngOnDestroy(): void {
     this.getAllProductSub?.unsubscribe()
+   
     this.getAllCategorieSub?.unsubscribe()
+  }
+  AddToCart(id:string):void{
+    this._CartService.addProducToCart(id).subscribe({
+      next:(res)=>{
+        console.log(res);
+        this._Tost.success(res.message,"FreshCart")
+      },
+      error:(err)=>{
+        console.log(err);
+      }
+    })
   }
 }
