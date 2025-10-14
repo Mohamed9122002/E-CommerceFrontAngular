@@ -13,11 +13,13 @@ import { CartComponent } from './Components/cart/cart.component';
 import { authGuard } from './Core/Guards/auth.guard';
 import { logedGuard } from './Core/Guards/loged.guard';
 import { DetailsComponent } from './Components/details/details.component';
+import { ForogotPasswordComponent } from './Components/forogot-password/forogot-password.component';
 export const routes: Routes = [
     {path:"",component:AuthLayoutComponent,canActivate:[logedGuard],children:[
         {path:"",redirectTo:'login',pathMatch:"full"},
         {path:"login",component:LoginComponent},
-        {path:"register",component:RegisterComponent}
+        {path:"register",component:RegisterComponent},
+        {path:"forogotpassword",component:ForogotPasswordComponent}
     ]},
     {path:"",component:BlankLayoutComponent, canActivate:[authGuard],children:[
         {path:"",redirectTo:'home',pathMatch:"full"},

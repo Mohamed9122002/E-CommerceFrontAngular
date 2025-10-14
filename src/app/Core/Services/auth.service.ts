@@ -30,4 +30,13 @@ export class AuthService {
     this._router.navigate(['/login'])
 
   }
+  setEmailVervify(data:object):Observable<any>{
+    return this._httpClient.post(`${environment.baseUrl}/api/v1/auth/forgotPasswords`,data)
+  }
+    setcodeVervify(data:object):Observable<any>{
+    return this._httpClient.post(`${environment.baseUrl}/api/v1/auth/verifyResetCode`,data)
+  }
+    setresetPassword(data:object):Observable<any>{
+    return this._httpClient.put(`${environment.baseUrl}/api/v1/auth/resetPassword`,data)
+  }
 }

@@ -30,10 +30,10 @@
             </div>
             }
         </div>
-
-        <button type="submit" class="btn-main  d-block">Login
-
-        </button>
+        <div class="d-flex justify-content-end gap-4">
+            <a routerLink="/forogotpassword" class="link-primary">Forogotpassword</a>
+            <button type="submit" class="btn-main ">Login</button>
+        </div>
     </form>
     @if(msgError){
     <p class="alert alert-danger w-50">{{msgError}}</p>
