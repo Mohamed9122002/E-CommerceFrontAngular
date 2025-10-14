@@ -1,32 +1,75 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { ProductsService } from '../../Core/Services/products.service';
 import { HttpResponse } from '@angular/common/http';
 import { IProduct } from '../../Core/Interface/iproduct';
+import { Subscription } from 'rxjs';
+import { CategoriesService } from '../../Core/Services/categories.service';
+import { ICategorie } from '../../Core/Interface/icategorie';
+import { CarouselModule, OwlOptions } from 'ngx-owl-carousel-o';
 
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [],
+  imports: [CarouselModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit ,OnDestroy{
   private readonly _productService = inject(ProductsService);
+  private readonly _categoriesService = inject(CategoriesService);
+    customOptionsCategories: OwlOptions = {
+    loop: true,
+    mouseDrag: true,
+    touchDrag: true,
+    pullDrag: false,
+    autoplay:true,
+    autoplayTimeout:4000,
+    dots: true,
+    navSpeed: 700,
+    navText: ['prev', 'next'],
+    responsive: {
+      0: {
+        items: 1
+      },
+      500: {
+        items: 2
+      },
+      740: {
+        items: 3
+      },
+      940: {
+        items: 5
+      }
+    },
+    nav: true
+  }
   productList:IProduct[] = []
-
+  getAllProductSub!:Subscription 
+  CatergoriesList:ICategorie[] = []
+  getAllCategorieSub!:Subscription 
   ngOnInit(): void {
-    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
-    //Add 'implements OnInit' to the class.
-    this._productService.getAllProducts().subscribe({
+   this.getAllCategorieSub =  this._categoriesService.getAllCategories().subscribe({
+          next: (res) => {
+            this.CatergoriesList = res.data
+        // console.log(res.data);
+      },
+      error:(err)=>{
+        // console.log(err);
+      }
+    })
+    this.getAllProductSub = this._productService.getAllProducts().subscribe({
       next: (res) => {
-        console.log(res.data);
+        // console.log(res.data);
         this.productList = res.data
       },
       error:(err)=>{
-        console.log(err);
-        
+        // console.log(err);
       }
     });
+  }
+  ngOnDestroy(): void {
+    this.getAllProductSub?.unsubscribe()
+    this.getAllCategorieSub?.unsubscribe()
   }
 }

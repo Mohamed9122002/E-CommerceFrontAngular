@@ -1,3 +1,16 @@
+<section class="container">
+    <h2>Popular Categories</h2>>
+  <owl-carousel-o [options]="customOptionsCategories">
+    @for (category of CatergoriesList; track category._id) {
+          <ng-template carouselSlide [id]="category._id">
+            <div>
+                <img class="w-100" [src]="category.image" [alt]="category.name">
+                <h6 class="text-main">{{category.name}} </h6>
+            </div>
+      </ng-template>
+    }  
+  </owl-carousel-o>
+</section>
 <section>
     <h2 class="text-center mb-4">Our Products</h2>
 
@@ -5,7 +18,7 @@
             <div class="row  g-3 ">
                 @for (product of productList; track product.id) {
                 <div class="col-md-2">
-                    <div class="border p-2">
+                    <div class="product p-2">
                         <img class="w-100" [src]="product.imageCover" [alt]="product.title">
                         <h3 class="small text-main">{{product.category.name}}</h3>
                         <h6>{{ product.title.slice(0, 20) }}{{ product.title.length > 20 ? '...' : '' }}</h6>
@@ -18,7 +31,7 @@
                                 <span class="text-muted">{{product.ratingsAverage}}</span>
                             </div>
                         </div>
-                        <button class="btn btn-primary">AddToCart</button>
+                        <button class="btn-main">AddToCart</button>
                     </div>
                 </div>
                 }
