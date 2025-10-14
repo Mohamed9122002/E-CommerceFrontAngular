@@ -14,21 +14,29 @@ import { authGuard } from './Core/Guards/auth.guard';
 import { logedGuard } from './Core/Guards/loged.guard';
 import { DetailsComponent } from './Components/details/details.component';
 import { ForogotPasswordComponent } from './Components/forogot-password/forogot-password.component';
+import { AllordersComponent } from './Components/allorders/allorders.component';
+import { OrderComponent } from './Components/order/order.component';
 export const routes: Routes = [
-    {path:"",component:AuthLayoutComponent,canActivate:[logedGuard],children:[
-        {path:"",redirectTo:'login',pathMatch:"full"},
-        {path:"login",component:LoginComponent},
-        {path:"register",component:RegisterComponent},
-        {path:"forogotpassword",component:ForogotPasswordComponent}
-    ]},
-    {path:"",component:BlankLayoutComponent, canActivate:[authGuard],children:[
-        {path:"",redirectTo:'home',pathMatch:"full"},
-        {path:"home",component:HomeComponent},
-        {path:"products",component:ProductComponent},
-        {path:"brands",component:BrandsComponent},
-        {path:"categories",component:CategoriesComponent},
-        {path:"cart",component:CartComponent},
-        {path:"details/:id",component:DetailsComponent},
-    ]},
-    {path:"**",component:NotFoundComponent}
+    {
+        path: "", component: AuthLayoutComponent, canActivate: [logedGuard], children: [
+            { path: "", redirectTo: 'login', pathMatch: "full" },
+            { path: "login", component: LoginComponent },
+            { path: "register", component: RegisterComponent },
+            { path: "forogotpassword", component: ForogotPasswordComponent }
+        ]
+    },
+    {
+        path: "", component: BlankLayoutComponent, canActivate: [authGuard], children: [
+            { path: "", redirectTo: 'home', pathMatch: "full" },
+            { path: "home", component: HomeComponent },
+            { path: "products", component: ProductComponent },
+            { path: "brands", component: BrandsComponent },
+            { path: "categories", component: CategoriesComponent },
+            { path: "cart", component: CartComponent },
+            { path: "details/:id", component: DetailsComponent },
+            { path: "orders/:id", component: OrderComponent },
+            { path: "allorders", component: AllordersComponent },
+        ]
+    },
+    { path: "**", component: NotFoundComponent }
 ]

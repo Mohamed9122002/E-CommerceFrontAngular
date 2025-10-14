@@ -4,11 +4,12 @@ import { CartService } from '../../Core/Services/cart.service';
 import { ICart } from '../../Core/Interface/icart';
 import { CurrencyPipe } from '@angular/common';
 import { rmSync } from 'node:fs';
+import { RouterLink } from "@angular/router";
 
 @Component({
   selector: 'app-cart',
   standalone: true,
-  imports: [CurrencyPipe],
+  imports: [CurrencyPipe, RouterLink],
   templateUrl: './cart.component.html',
   styleUrl: './cart.component.scss'
 })
