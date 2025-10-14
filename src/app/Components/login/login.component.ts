@@ -25,8 +25,12 @@ export class LoginComponent {
       this._authService.setLgoinForm(this.LgoinForm.value).subscribe({
         next:(res)=>{
           if(res.message == 'success'){
+            localStorage.setItem("UserToken",res.token)
+            this._authService.saveUserData()
             this._router.navigate(['/home'])
+        
           }
+        
           console.log(res);
         },
         error:(err )=>{
