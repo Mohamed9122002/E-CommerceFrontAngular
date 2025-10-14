@@ -4,11 +4,8 @@
 
     <div class="mb-3">
       <label class="form-label">Full Name</label>
-      <input [ngClass]="{
-        'is-valid' : !registerForm.get('name')?.errors&& registerForm.get('name')?.touched,
-        'is-invalid' : registerForm.get('name')?.errors && registerForm.get('name')?.touched
-      }" type="text" class="form-control" formControlName="name" placeholder="Enter your full name">
-      @if (registerForm.get('name')?.errors && registerForm.get('name')?.touched ||registerForm.get('name')?.dirty ) {
+      <input  type="text" class="form-control" formControlName="name" placeholder="Enter your full name">
+      @if (registerForm.get('name')?.errors && registerForm.get('name')?.touched  ) {
       <div class="alert alert-danger w-50">
         @if (registerForm.get('name')?.getError('required')) {
         <p class="m-0">Name Required</p>
@@ -71,10 +68,7 @@
       </div>
       }
     </div>
-    <button [disabled]="registerForm.invalid || isLoading" type="submit" class="btn-main  d-block">Register
-      @if (isLoading) {
-        <span><i class="fas fa-spin fa-spinner"></i></span>
-      }
+    <button [disabled]="registerForm.invalid"  type="submit" class="btn-main  d-block">Register
     </button>
   </form>
   @if(msgError){

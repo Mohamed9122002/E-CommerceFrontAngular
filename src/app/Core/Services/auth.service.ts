@@ -12,7 +12,7 @@ export class AuthService {
   userData: any = null
   private readonly _httpClient = inject(HttpClient);
   setRegisterForm(data: object): Observable<any> {
-    return this._httpClient.post(`${this.baseUrl}/api/v1/auth/signup`, data)
+    return this._httpClient.post("https://ecommerce.routemisr.com/api/v1/auth/signup", data)
   }
   setLgoinForm(data: object): Observable<any> {
     return this._httpClient.post(`${this.baseUrl}/api/v1/auth/signin`, data)

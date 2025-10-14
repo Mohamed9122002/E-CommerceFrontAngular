@@ -25,23 +25,26 @@ export class RegisterComponent {
       email : [null,[Validators.email ,Validators.required]],
       password : [null,[Validators.required,Validators.pattern(/^\w{6,}$/)]],
       rePassword : [null],
-      phone: [null,Validators.required,Validators.pattern(/^01[0125][0-9]{8}$/)]
+      phone: [null,[Validators.required, Validators.pattern(/^01[0125][0-9]{8}$/)]]
     },{
       validators:[this.confirmPassword]
     });
   registerFormSubmit():void {
     if(this.registerForm.valid){
+      console.log(this.registerForm.value);
+      this.isLoading = true;
       this._authService.setRegisterForm(this.registerForm.value).subscribe({
         next:(res)=>{
-          if(res.message == 'success'){
+          console.log(res);
+          if(res.message === 'success'){
             this._router.navigate(['/login'])
           }
-          console.log(res);
-          this.isLoading = true;
+                this.isLoading = false;
         },
         error:(err:HttpErrorResponse)=>{
           this.msgError = err.error.message 
           console.log(err);
+           this.isLoading = false;
           
         }
       })
@@ -54,4 +57,5 @@ export class RegisterComponent {
       return {mismatch:true}
     }
   } 
+  
 }
