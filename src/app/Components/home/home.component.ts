@@ -60,7 +60,6 @@ export class HomeComponent implements OnInit ,OnDestroy{
   CatergoriesList:ICategorie[] = []
   getAllCategorieSub!:Subscription 
   ngOnInit(): void {
-    this._NgxSpinnerService.show()
    this.getAllCategorieSub =  this._categoriesService.getAllCategories().subscribe({
           next: (res) => {
             this.CatergoriesList = res.data
@@ -72,7 +71,6 @@ export class HomeComponent implements OnInit ,OnDestroy{
       next: (res) => {
         // console.log(res.data);
         this.productList = res.data
-          this._NgxSpinnerService.hide()
       }
     });
 
@@ -83,12 +81,10 @@ export class HomeComponent implements OnInit ,OnDestroy{
     this.getAllCategorieSub?.unsubscribe()
   }
   AddToCart(id:string):void{
-     this._NgxSpinnerService.show()
     this._CartService.addProducToCart(id).subscribe({
       next:(res)=>{
         console.log(res);
         this._Tost.success(res.message,"FreshCart")
-        this._NgxSpinnerService.hide()
       }
     })
   }
