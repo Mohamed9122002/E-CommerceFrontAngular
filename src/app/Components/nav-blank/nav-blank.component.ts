@@ -1,8 +1,7 @@
-import { Component, inject, OnInit, PLATFORM_ID } from '@angular/core';
+import { Component, computed, inject, OnInit, PLATFORM_ID, Signal, signal } from '@angular/core';
 import { RouterLink, RouterLinkActive } from "@angular/router";
 import { AuthService } from '../../Core/Services/auth.service';
 import { CartService } from '../../Core/Services/cart.service';
-import { ProductsService } from '../../Core/Services/products.service';
 import { isPlatformBrowser } from '@angular/common';
 
 @Component({
@@ -14,25 +13,19 @@ import { isPlatformBrowser } from '@angular/common';
 })
 export class NavBlankComponent implements OnInit {
   private readonly _auth = inject(AuthService);
-  private readonly _CartService= inject(CartService);
+  private readonly _CartService = inject(CartService);
   private readonly _PLATFORM_ID = inject(PLATFORM_ID)
-  CountNumber:number = 0 
+  CountNumber: Signal<number> = computed(() => this._CartService.cartNumber())
   ngOnInit(): void {
-    if(isPlatformBrowser(this._PLATFORM_ID)){
-          this._CartService.getLoggedUserCart().subscribe({
-      next:(res)=>{
-        this._CartService.cartNumber.next(res.numOfCartItems)
-      }
-    })
+    if (isPlatformBrowser(this._PLATFORM_ID)) {
+      this._CartService.getLoggedUserCart().subscribe({
+        next: (res) => {
+          this._CartService.cartNumber.set(res.numOfCartItems)
+        }
+      })
     }
-    this._CartService.cartNumber.subscribe({
-      next:(data)=>{
-        this.CountNumber = data
-      }
-    })
-
   }
-  SignOut():void{
+  SignOut(): void {
     this._auth.logOut();
   }
 }

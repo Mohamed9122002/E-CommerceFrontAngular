@@ -63,13 +63,10 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.getAllCategorieSub = this._categoriesService.getAllCategories().subscribe({
       next: (res) => {
         this.CatergoriesList = res.data
-
-        // console.log(res.data);
       }
     })
     this.getAllProductSub = this._productService.getAllProducts().subscribe({
       next: (res) => {
-        // console.log(res.data);
         this.productList = res.data
       }
     });
@@ -85,7 +82,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       next: (res) => {
         // console.log(res);
         this._Tost.success(res.message, "FreshCart")
-        this._CartService.cartNumber.next(res.numOfCartItems)
+        this._CartService.cartNumber.set(res.numOfCartItems)
       }
     })
   }
