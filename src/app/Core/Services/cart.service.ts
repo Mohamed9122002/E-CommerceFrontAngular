@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { inject, Injectable, PLATFORM_ID, signal, WritableSignal } from '@angular/core';
+import { effect, inject, Injectable, PLATFORM_ID, signal, WritableSignal } from '@angular/core';
 import { BehaviorSubject, Observable, Observer } from 'rxjs';
 import { environment } from '../../../environments/environment';
 
@@ -9,6 +9,15 @@ import { environment } from '../../../environments/environment';
 export class CartService {
   private readonly _HttpClient = inject(HttpClient)
   cartNumber:WritableSignal<number> = signal(0)
+
+  /**
+   *
+   */
+  constructor() {
+    effect(()=>{
+      localStorage.setItem("UserCart",this.cartNumber().toString())
+    })    
+  }
   addProducToCart(idProduct: string): Observable<any> {
     return this._HttpClient.post(`${environment.baseUrl}/api/v1/cart`,
       {
