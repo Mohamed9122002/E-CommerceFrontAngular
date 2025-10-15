@@ -62,18 +62,12 @@ export class HomeComponent implements OnInit ,OnDestroy{
           next: (res) => {
             this.CatergoriesList = res.data
         // console.log(res.data);
-      },
-      error:(err)=>{
-        // console.log(err);
       }
     })
     this.getAllProductSub = this._productService.getAllProducts().subscribe({
       next: (res) => {
         // console.log(res.data);
         this.productList = res.data
-      },
-      error:(err)=>{
-        // console.log(err);
       }
     });
     
@@ -88,9 +82,6 @@ export class HomeComponent implements OnInit ,OnDestroy{
       next:(res)=>{
         console.log(res);
         this._Tost.success(res.message,"FreshCart")
-      },
-      error:(err)=>{
-        console.log(err);
       }
     })
   }
