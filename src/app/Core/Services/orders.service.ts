@@ -8,15 +8,11 @@ import { environment } from '../../../environments/environment';
 })
 export class OrdersService {
   private readonly _HttpClient = inject(HttpClient)
-  MyHeaders: any = { token: localStorage.getItem("UserToken") }
   CheckOut(idCart:string |null,shippingAddress:object):Observable<any>{
     return this._HttpClient.post(`${environment.baseUrl}/api/v1/orders/checkout-session/${idCart}?url=${environment.UrlServer}`,{
       
     "shippingAddress":shippingAddress
-    },
-      {
-        headers: this.MyHeaders
-      }
+    }
   )
   }
 }
