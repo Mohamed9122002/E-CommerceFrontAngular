@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable, PLATFORM_ID } from '@angular/core';
-import { Observable, Observer } from 'rxjs';
+import { BehaviorSubject, Observable, Observer } from 'rxjs';
 import { environment } from '../../../environments/environment';
 
 @Injectable({
@@ -8,7 +8,7 @@ import { environment } from '../../../environments/environment';
 })
 export class CartService {
   private readonly _HttpClient = inject(HttpClient)
-
+  cartNumber:BehaviorSubject<number> = new BehaviorSubject(0)
   addProducToCart(idProduct: string): Observable<any> {
     return this._HttpClient.post(`${environment.baseUrl}/api/v1/cart`,
       {
@@ -16,7 +16,7 @@ export class CartService {
       }
     );
   }
-  getLoggedUserCart(): Observable<any> {
+  getLoggedUserCart():Observable<any> {
     return this._HttpClient.get(`${environment.baseUrl}/api/v1/cart`);
   }
   DeletCartItem(id: string): Observable<any> {

@@ -9,5 +9,5 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
   styleUrl: './nav-auth.component.scss'
 })
 export class NavAuthComponent {
-
+  
 }

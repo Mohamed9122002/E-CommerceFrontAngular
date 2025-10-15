@@ -18,24 +18,24 @@ import { NgxSpinnerService } from 'ngx-spinner';
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CarouselModule ,FormsModule,PipesSearchPipe, RouterLink ,CurrencyPipe,],
+  imports: [CarouselModule, FormsModule, PipesSearchPipe, RouterLink, CurrencyPipe,],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
-export class HomeComponent implements OnInit ,OnDestroy{
+export class HomeComponent implements OnInit, OnDestroy {
   private readonly _productService = inject(ProductsService);
   private readonly _categoriesService = inject(CategoriesService);
   private readonly _CartService = inject(CartService);
   private readonly _Tost = inject(ToastrService)
   private readonly _NgxSpinnerService = inject(NgxSpinnerService)
-  text:string  = ""
-    customOptionsCategories: OwlOptions = {
+  text: string = ""
+  customOptionsCategories: OwlOptions = {
     loop: true,
     mouseDrag: true,
     touchDrag: true,
     pullDrag: false,
-    autoplay:true,
-    autoplayTimeout:4000,
+    autoplay: true,
+    autoplayTimeout: 4000,
     dots: true,
     navSpeed: 700,
     navText: ['prev', 'next'],
@@ -55,15 +55,15 @@ export class HomeComponent implements OnInit ,OnDestroy{
     },
     nav: true
   }
-  productList:IProduct[] = []
-  getAllProductSub!:Subscription 
-  CatergoriesList:ICategorie[] = []
-  getAllCategorieSub!:Subscription 
+  productList: IProduct[] = []
+  getAllProductSub!: Subscription
+  CatergoriesList: ICategorie[] = []
+  getAllCategorieSub!: Subscription
   ngOnInit(): void {
-   this.getAllCategorieSub =  this._categoriesService.getAllCategories().subscribe({
-          next: (res) => {
-            this.CatergoriesList = res.data
-              
+    this.getAllCategorieSub = this._categoriesService.getAllCategories().subscribe({
+      next: (res) => {
+        this.CatergoriesList = res.data
+
         // console.log(res.data);
       }
     })
@@ -77,14 +77,15 @@ export class HomeComponent implements OnInit ,OnDestroy{
   }
   ngOnDestroy(): void {
     this.getAllProductSub?.unsubscribe()
-   
+
     this.getAllCategorieSub?.unsubscribe()
   }
-  AddToCart(id:string):void{
+  AddToCart(id: string): void {
     this._CartService.addProducToCart(id).subscribe({
-      next:(res)=>{
-        console.log(res);
-        this._Tost.success(res.message,"FreshCart")
+      next: (res) => {
+        // console.log(res);
+        this._Tost.success(res.message, "FreshCart")
+        this._CartService.cartNumber.next(res.numOfCartItems)
       }
     })
   }
