@@ -12,6 +12,7 @@ import { PipesSearchPipe } from '../../Core/Pipes/search.pipe';
 import { FormsModule } from '@angular/forms';
 import { CartService } from '../../Core/Services/cart.service';
 import { ToastrService } from 'ngx-toastr';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 
 @Component({
@@ -26,6 +27,7 @@ export class HomeComponent implements OnInit ,OnDestroy{
   private readonly _categoriesService = inject(CategoriesService);
   private readonly _CartService = inject(CartService);
   private readonly _Tost = inject(ToastrService)
+  private readonly _NgxSpinnerService = inject(NgxSpinnerService)
   text:string  = ""
     customOptionsCategories: OwlOptions = {
     loop: true,
@@ -58,9 +60,11 @@ export class HomeComponent implements OnInit ,OnDestroy{
   CatergoriesList:ICategorie[] = []
   getAllCategorieSub!:Subscription 
   ngOnInit(): void {
+    this._NgxSpinnerService.show()
    this.getAllCategorieSub =  this._categoriesService.getAllCategories().subscribe({
           next: (res) => {
             this.CatergoriesList = res.data
+              
         // console.log(res.data);
       }
     })
@@ -68,9 +72,10 @@ export class HomeComponent implements OnInit ,OnDestroy{
       next: (res) => {
         // console.log(res.data);
         this.productList = res.data
+          this._NgxSpinnerService.hide()
       }
     });
-    
+
   }
   ngOnDestroy(): void {
     this.getAllProductSub?.unsubscribe()
@@ -78,10 +83,12 @@ export class HomeComponent implements OnInit ,OnDestroy{
     this.getAllCategorieSub?.unsubscribe()
   }
   AddToCart(id:string):void{
+     this._NgxSpinnerService.show()
     this._CartService.addProducToCart(id).subscribe({
       next:(res)=>{
         console.log(res);
         this._Tost.success(res.message,"FreshCart")
+        this._NgxSpinnerService.hide()
       }
     })
   }

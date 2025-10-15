@@ -8,6 +8,7 @@ import { BrowserAnimationsModule, provideAnimations } from '@angular/platform-br
 import { provideToastr } from 'ngx-toastr';
 import { headerInterceptor } from './Core/interceptors/header.interceptor';
 import { errorsInterceptor } from './Core/interceptors/errors.interceptor';
+import { NgxSpinnerComponent, NgxSpinnerModule } from 'ngx-spinner';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -16,5 +17,6 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient( withFetch(),withInterceptors([headerInterceptor,errorsInterceptor])),
     provideAnimations(),
     provideToastr(),
+    importProvidersFrom(NgxSpinnerModule)
   ]
 };
