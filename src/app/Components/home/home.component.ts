@@ -1,6 +1,5 @@
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { ProductsService } from '../../Core/Services/products.service';
-import { HttpResponse } from '@angular/common/http';
 import { IProduct } from '../../Core/Interface/iproduct';
 import { Subscription } from 'rxjs';
 import { CategoriesService } from '../../Core/Services/categories.service';
@@ -12,7 +11,7 @@ import { PipesSearchPipe } from '../../Core/Pipes/search.pipe';
 import { FormsModule } from '@angular/forms';
 import { CartService } from '../../Core/Services/cart.service';
 import { ToastrService } from 'ngx-toastr';
-import { NgxSpinnerService } from 'ngx-spinner';
+import { WishListService } from '../../Core/Services/wish-list.service';
 
 
 @Component({
@@ -27,7 +26,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   private readonly _categoriesService = inject(CategoriesService);
   private readonly _CartService = inject(CartService);
   private readonly _Tost = inject(ToastrService)
-  private readonly _NgxSpinnerService = inject(NgxSpinnerService)
+  private readonly _WishListService = inject(WishListService);
   text: string = ""
   customOptionsCategories: OwlOptions = {
     loop: true,
@@ -72,11 +71,6 @@ export class HomeComponent implements OnInit, OnDestroy {
     });
 
   }
-  ngOnDestroy(): void {
-    this.getAllProductSub?.unsubscribe()
-
-    this.getAllCategorieSub?.unsubscribe()
-  }
   AddToCart(id: string): void {
     this._CartService.addProducToCart(id).subscribe({
       next: (res) => {
@@ -85,5 +79,18 @@ export class HomeComponent implements OnInit, OnDestroy {
         this._CartService.cartNumber.set(res.numOfCartItems)
       }
     })
+  }
+  addToWishlist(idProduct:string):void{
+    this._WishListService.addProductToWishlist(idProduct).subscribe({
+      next:(res)=>{
+        this._Tost.success(res.message)
+        this._WishListService.WishListLength.set(res.data.length)
+      }
+    })
+  }
+    ngOnDestroy(): void {
+    this.getAllProductSub?.unsubscribe()
+
+    this.getAllCategorieSub?.unsubscribe()
   }
 }

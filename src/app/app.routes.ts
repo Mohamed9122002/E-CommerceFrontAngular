@@ -14,6 +14,7 @@ import { DetailsComponent } from './Components/details/details.component';
 import { ForogotPasswordComponent } from './Components/forogot-password/forogot-password.component';
 import { AllordersComponent } from './Components/allorders/allorders.component';
 import { OrderComponent } from './Components/order/order.component';
+import { WishlistComponent } from './Components/wishlist/wishlist.component';
 export const routes: Routes = [
     {
         path: "", component: AuthLayoutComponent, canActivate: [logedGuard], children: [
@@ -28,12 +29,13 @@ export const routes: Routes = [
             { path: "", redirectTo: 'home', pathMatch: "full" },
             { path: "home", component: HomeComponent },
             { path: "products", component: ProductComponent },
-            { path: "brands",  loadComponent:()=> import('./Components/brands/brands.component').then((c)=>c.BrandsComponent) },
-            { path: "categories", loadComponent:()=> import('./Components/categories/categories.component').then((c)=>c.CategoriesComponent) },
+            { path: "brands", loadComponent: () => import('./Components/brands/brands.component').then((c) => c.BrandsComponent) },
+            { path: "categories", loadComponent: () => import('./Components/categories/categories.component').then((c) => c.CategoriesComponent) },
             { path: "cart", component: CartComponent },
             { path: "details/:id", component: DetailsComponent },
             { path: "orders/:id", component: OrderComponent },
             { path: "allorders", component: AllordersComponent },
+            { path: "wishlist", component: WishlistComponent },
         ]
     },
     { path: "**", component: NotFoundComponent }
