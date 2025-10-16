@@ -1,1 +1,23 @@
-<p>categories works!</p>
+<section>
+    <h2 class="text-center mb-4">Our Categories</h2>
+    <div class="my-4">
+        <div class="row g-3">
+            @for (category of categoryList ; track $index) {
+                <div class="col-md-3">
+                        <div class="card shadow-lg border-0 rounded-4" style="max-width: 500px; margin: auto;">
+                            <img [src]="category.image" class="card-img-top rounded-top-4 category-img" alt="{{ category.name }}" />
+                            <div class="card-body text-center">
+                                <h4 class="card-title text-primary fw-bold">{{ category.name }}</h4>
+                                <p class="text-muted mb-2">
+                                    <i class="fa-solid fa-tag me-2 text-secondary"></i>{{ category.slug }}
+                                </p>
+                                <button  [routerLink]="['/categorydetails',category._id]" class="btn btn-outline-primary mt-3">
+                                    <i class="fa-solid fa-eye me-2 "></i>Category Details
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+            }
+        </div>
+    </div>
+</section>

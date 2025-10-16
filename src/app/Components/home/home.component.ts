@@ -1,23 +1,23 @@
-import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit, signal, WritableSignal } from '@angular/core';
 import { ProductsService } from '../../Core/Services/products.service';
 import { IProduct } from '../../Core/Interface/iproduct';
 import { Subscription } from 'rxjs';
 import { CategoriesService } from '../../Core/Services/categories.service';
-import { ICategorie } from '../../Core/Interface/icategorie';
 import { CarouselModule, OwlOptions } from 'ngx-owl-carousel-o';
 import { RouterLink } from "@angular/router";
-import { CurrencyPipe } from '@angular/common';
+import { CurrencyPipe, NgClass } from '@angular/common';
 import { PipesSearchPipe } from '../../Core/Pipes/search.pipe';
 import { FormsModule } from '@angular/forms';
 import { CartService } from '../../Core/Services/cart.service';
 import { ToastrService } from 'ngx-toastr';
 import { WishListService } from '../../Core/Services/wish-list.service';
+import { Icategory } from '../../Core/Interface/icategory';
 
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CarouselModule, FormsModule, PipesSearchPipe, RouterLink, CurrencyPipe,],
+  imports: [CarouselModule, FormsModule, PipesSearchPipe, RouterLink, CurrencyPipe, NgClass],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
@@ -28,6 +28,10 @@ export class HomeComponent implements OnInit, OnDestroy {
   private readonly _Tost = inject(ToastrService)
   private readonly _WishListService = inject(WishListService);
   text: string = ""
+  productList: IProduct[] = []
+  getAllProductSub!: Subscription
+  CatergoriesList: Icategory[] = []
+  getAllCategorieSub!: Subscription
   customOptionsCategories: OwlOptions = {
     loop: true,
     mouseDrag: true,
@@ -54,10 +58,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     },
     nav: true
   }
-  productList: IProduct[] = []
-  getAllProductSub!: Subscription
-  CatergoriesList: ICategorie[] = []
-  getAllCategorieSub!: Subscription
+
   ngOnInit(): void {
     this.getAllCategorieSub = this._categoriesService.getAllCategories().subscribe({
       next: (res) => {
@@ -80,15 +81,16 @@ export class HomeComponent implements OnInit, OnDestroy {
       }
     })
   }
-  addToWishlist(idProduct:string):void{
+  addToWishlist(idProduct: string): void {
     this._WishListService.addProductToWishlist(idProduct).subscribe({
-      next:(res)=>{
+      next: (res) => {
+        console.log(res);
         this._Tost.success(res.message)
         this._WishListService.WishListLength.set(res.data.length)
       }
     })
   }
-    ngOnDestroy(): void {
+  ngOnDestroy(): void {
     this.getAllProductSub?.unsubscribe()
 
     this.getAllCategorieSub?.unsubscribe()
