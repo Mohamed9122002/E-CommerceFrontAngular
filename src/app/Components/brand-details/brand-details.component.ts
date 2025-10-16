@@ -11,14 +11,14 @@ import { IBrand } from '../../Core/Interface/ibrand';
   styleUrl: './brand-details.component.scss'
 })
 export class BrandDetailsComponent {
-  constructor(private _BrandService:BrandService,private readonly _ActivatedRoute:ActivatedRoute){}
-  brand:IBrand | null = null 
+  constructor(private _BrandService: BrandService, private readonly _ActivatedRoute: ActivatedRoute) { }
+  brand: IBrand | null = null
   ngOnInit(): void {
     this._ActivatedRoute.paramMap.subscribe({
-      next:(params)=>{
-        let BrandId = params.get('id') 
+      next: (params) => {
+        let BrandId = params.get('id')
         this._BrandService.GetSpecificBrand(BrandId).subscribe({
-          next:(res)=>{
+          next: (res) => {
             this.brand = res.data
             console.log(this.brand)
           }
