@@ -1,0 +1,15 @@
+@if(brand){
+<div class="container mt-5">
+  <div class="card shadow-lg border-0 rounded-4 mx-auto" style="max-width: 450px;">
+    <img [src]="brand.image" class="card-img-top rounded-top-4 " alt="{{ brand.name }}" />
+    <div class="card-body text-center">
+      <h3 class="card-title text-primary fw-bold">{{ brand.name }}</h3>
+
+      <p class="text-muted mb-2">
+        <i class="fa-solid fa-tag me-2 text-secondary"></i>{{ brand.slug }}
+      </p>
+    </div>
+  </div>
+</div>
+
+}
